@@ -15,6 +15,10 @@ dnl Checks for libraries.
 dnl Replace `main' with a function in -lz:
 AC_CHECK_LIB(z, main,, echo "you must install zlib on your system to compile mergelog" ; exit)
 
+dnl Checks for libraries.
+dnl Replace `main' with a function in -lbz2:
+AC_CHECK_LIB(bz2, main,, echo "you must install bzip2/libbz2.a on your system to compile bzmergelog" ; exit)
+
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(unistd.h)

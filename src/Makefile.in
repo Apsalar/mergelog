@@ -62,7 +62,7 @@ MAKEINFO = @MAKEINFO@
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
 
-bin_PROGRAMS = mergelog zmergelog
+bin_PROGRAMS = mergelog zmergelog bzmergelog
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_CLEAN_FILES = 
 PROGRAMS =  $(bin_PROGRAMS)
@@ -268,7 +268,6 @@ distclean-generic:
 maintainer-clean-generic:
 mostlyclean-am:  mostlyclean-binPROGRAMS mostlyclean-compile \
 		mostlyclean-tags mostlyclean-depend mostlyclean-generic
-
 mostlyclean: mostlyclean-am
 
 clean-am:  clean-binPROGRAMS clean-compile clean-tags clean-depend \
@@ -308,6 +307,9 @@ mergelog: mergelog.c
 
 zmergelog: mergelog.c
 	$(COMPILE) $(LIBS) -DVERSION=\"$(VERSION)\" -Wall -DUSE_ZLIB mergelog.c -o $@
+
+bzmergelog: mergelog.c
+	$(COMPILE) -DVERSION=\"$(VERSION)\" -Wall -DUSE_BZIP2 mergelog.c -lbz2 -o $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

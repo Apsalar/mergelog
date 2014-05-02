@@ -30,6 +30,9 @@
 #include <time.h>
 #include <string.h>
 #include <zlib.h>
+#ifdef USE_BZIP2
+#include <bzlib.h>
+#endif
 #include <unistd.h>
 
 
@@ -46,12 +49,24 @@
 #define myrewind gzrewind
 #define myclose gzclose
 #else
+
+#ifdef USE_BZIP2
+#define myFH BZFILE
+#define myopen BZ2_bzopen
+#define mygets(a,b,c,d) fast_bzgets(a,b,c,d)
+#define myrewind BZ2_rewind
+#define myclose BZ2_bzclose
+#else
 #define myFH FILE
 #define myopen fopen
 #define mygets(a,b,c,d) fgets(a,b,c)
 #define myrewind rewind
 #define myclose fclose
 #endif
+
+#endif
+
+
 
 
 #ifdef USE_ZLIB
@@ -74,6 +89,43 @@ char *fast_gzgets (char *buf, int size, myFH *fp, int i) {
   for(;;) {
     if (f_cp[i]>f_end[i]) {
       f_end[i]=gzread(fp, f_buf[i], GZBUFFER_SIZE)+f_buf[i]-1;
+      if (f_end[i]<f_buf[i]) {
+	return NULL;
+      }
+      f_cp[i]=f_buf[i];
+    }
+    if (--size) {
+      *out_cp++ = *f_cp[i];
+      if (*f_cp[i]++ == '\n') {
+        *out_cp='\0';
+        return buf;
+      }
+    } else {
+      *out_cp='\0';
+      return buf;
+    }
+  }
+}
+#endif
+
+
+#ifdef USE_BZIP2
+#define BZ2BUFFER_SIZE 65536
+#define MAX_FILES 512
+
+
+char    *f_buf[MAX_FILES];
+char    *f_cp[MAX_FILES];
+char    *f_end[MAX_FILES];
+
+
+char *fast_bzgets (char *buf, int size, myFH *fp, int i) {
+  
+  char *out_cp=buf;
+
+  for(;;) {
+    if (f_cp[i]>f_end[i]) {
+      f_end[i]=BZ2_bzread(fp, f_buf[i], BZ2BUFFER_SIZE)+f_buf[i]-1;
       if (f_end[i]<f_buf[i]) {
 	return NULL;
       }
@@ -127,6 +179,16 @@ int main (int argc, char *argv[]) {
    */
   if(argc>MAX_FILES) {
     fputs("too many gzipped log files, aborting\n",stderr);
+    exit(1);
+  }
+#endif
+
+#ifdef USE_BZIP2
+  /*
+    check if there are enough bunzip buffers
+   */
+  if(argc>MAX_FILES) {
+    fputs("too many bzipped log files, aborting\n",stderr);
     exit(1);
   }
 #endif
@@ -187,6 +249,18 @@ int main (int argc, char *argv[]) {
       exit(1);
     }
     f_cp[i]=f_buf[i]+GZBUFFER_SIZE;
+#endif
+
+#ifdef USE_BZIP2
+    /*
+      init the bzip2 buffer
+     */
+    f_buf[i]=malloc(BZ2BUFFER_SIZE);
+    if (f_buf[i] == NULL) {
+      perror("malloc");
+      exit(1);
+    }
+    f_cp[i]=f_buf[i]+BZ2BUFFER_SIZE;
 #endif
 
     /*
