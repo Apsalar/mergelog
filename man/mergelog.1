@@ -1,0 +1,16 @@
+.TH MERGELOG 1 "22 Jan 2001"
+.SH NAME
+mergelog \- a fast tool to merge http log files by date
+.SH SYNOPSIS
+.B mergelog
+.IR logfile1
+.IR logfile2 \ ...
+.SH DESCRIPTION
+The
+.IR mergelog
+program is a tool which merges by date http log files in \'Common Log Format\'. The result is sent to the standard output. It is useful if you want to create a single log file for multiple hosts using round-robin DNS.
+.SH "SEE ALSO"
+zmergelog (1)
+.SH AUTHOR
+Bertrand Demiddelaer <bert@zehc.net>
+.\" end of man page

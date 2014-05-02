@@ -1,0 +1,141 @@
+2001-11-04	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 4.5
+
+	* don't abort anymore on corrupted log lines
+
+	* set BUFFER_SIZE value to 32Ko
+	
+	
+2001-21-03	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 4.4
+
+	* fixed a major bug on a broken month initialization
+	
+	
+2001-05-03	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 4.3
+
+	* corrections on manpages
+
+	* fix in configure.in to abort if zlib is not present
+
+	* fixed a potential segmentation fault on malformed log lines
+	
+
+2001-22-01	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 4.2
+
+	* autoconf compliant thanks to Igor Genibel <igor@genibel.org>
+
+
+2001-07-01	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 4.1
+
+	* fixed a new bug for empty log files
+	
+	* optimizations of the new system of date comparison
+
+	* set BUFFER_SIZE value to 16Ko instead of 8Ko
+
+	* some clean up in the critical loop
+
+	* fixed and updated code comments
+
+
+2001-05-01	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 4.0
+
+	* massive code clean up
+
+	* fixed the lock problem due to date jump back in log files
+
+	* minor fixes and optimizations
+
+
+2001-03-01	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 3.3
+
+	* optimizations on 'fast_gzgets'
+
+	* added a support for empty log files 
+
+	* minor optimizations
+
+
+2001-02-01	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 3.2
+
+	* minor optimizations
+
+	* use of 'write' instead of 'fputs' in the critical loop
+
+
+2000-29-12	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 3.1
+
+	* fixed a potential bug with too many gzipped files in argument
+
+	* implementation of a faster replacement for 'memcmp' in the critical loop
+
+
+2000-28-12	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 3.0
+
+	* added some code to replace gzgets by a faster gzip support 
+
+
+2000-02-11	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 2.1
+
+	* implementation of a faster replacement for 'localtime'
+
+	* fixed a bug which sometimes dumped core with an empty log file
+
+
+2000-19-10	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 2.0
+
+	* added a patch for zlib support submitted by Daniel Sully <daniel-zlib@electricrain.com>
+
+	* split of mergelog into mergelog and zmergelog
+
+	* README has been updated
+
+	* TODO added
+
+
+2000-18-10	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 1.2
+
+	* use of 'fputs' instead of 'printf' in the critical loop 
+
+	* improvement of the localization of the date substring in a log line
+
+
+2000-17-10	Bertrand Demiddelaer <bert@zehc.net>
+
+	* release 1.1
+
+	* fixed a bug which sometimes printed the last line of a log file twice
+	
+	* implemented a faster way to translate date instead of using 'strftime'
+
+	* added more comments to the code
+
+
+2000-16-10	Bertrand Demiddelaer <bert@zehc.net>
+
+	* initial release 1.0

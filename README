@@ -1,0 +1,9 @@
+mergelog is a tool which merges and sorts by date http log files in 'Common Log Format'. The result is sent to the standard output. It is useful to create a single log file for multiple hosts using round-robin DNS.
+
+mergelog is now composed of two executables : mergelog and zmergelog. mergelog only manages plain text files, and has been designed to be fast, especially with huge log files from highly stressed web servers. zmergelog can manage plain text or gzipped files.
+
+Any feedback, or bug report is welcome. It helps me to make mergelog better.
+
+05 Jan 2001
+
+Bertrand Demiddelaer <bert@zehc.net>

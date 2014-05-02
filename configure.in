@@ -1,0 +1,30 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/mergelog.c)
+
+PACKAGE=mergelog
+VERSION=4.5
+AM_INIT_AUTOMAKE($PACKAGE,$VERSION,nosubst)
+
+AC_ARG_PROGRAM
+AC_PROG_INSTALL()
+
+dnl Checks for programs.
+AC_PROG_CC
+
+dnl Checks for libraries.
+dnl Replace `main' with a function in -lz:
+AC_CHECK_LIB(z, main,, echo "you must install zlib on your system to compile mergelog" ; exit)
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_TYPE_SIZE_T
+AC_STRUCT_TM
+
+dnl Checks for library functions.
+AC_FUNC_MEMCMP
+AC_CHECK_FUNCS(mktime)
+
+AC_OUTPUT(Makefile src/Makefile man/Makefile)
